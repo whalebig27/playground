@@ -1,0 +1,125 @@
+<html>
+  <head>
+    <link href="./bower_components/angular-material/angular-material.css" rel="stylesheet" />
+
+    <script src="./bower_components/angular/angular.js" type="text/javascript" ></script>
+    <script src="./bower_components/angular-animate/angular-animate.js" type="text/javascript" ></script>
+    <script src="./bower_components/angular-aria/angular-aria.js" type="text/javascript" ></script>
+    <script src="./bower_components/angular-material/angular-material.js" type="text/javascript" ></script>
+
+    <script>
+        // Include the dependency upon ngMaterial - important !!
+        angular.module('starterApp', ['ngMaterial'])
+        .controller('AppCtrl', function($scope, $mdToast, $document) {
+        
+		  var last = {
+			  bottom: false,
+			  top: true,
+			  left: false,
+			  right: true
+			};
+		  $scope.toastPosition = angular.extend({},last);
+		  $scope.getToastPosition = function() {
+			sanitizePosition();
+			return Object.keys($scope.toastPosition)
+			  .filter(function(pos) { return $scope.toastPosition[pos]; })
+			  .join(' ');
+		  };
+		  function sanitizePosition() {
+			var current = $scope.toastPosition;
+			if ( current.bottom && last.top ) current.top = false;
+			if ( current.top && last.bottom ) current.bottom = false;
+			if ( current.right && last.left ) current.left = false;
+			if ( current.left && last.right ) current.right = false;
+			last = angular.extend({},current);
+		  };       		
+        		
+            $scope.showSimpleToast = function() {
+			$mdToast.show(
+			  $mdToast.simple()
+				.textContent('Simple Toast!')
+				.position($scope.getToastPosition())
+				.hideDelay(3000)
+			);
+		  };
+		  
+        })
+    </script>
+    
+  </head>
+    
+   <body ng-app="starterApp" ng-controller="AppCtrl" layout="column">
+
+    <!-- Container #1 (see wireframe) -->
+    <md-toolbar layout="row" >
+      
+        <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Settings">
+          <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
+        </md-button>
+        <h2>
+          <span>Toolbar with Icon Buttons</span>
+        </h2>
+        <span flex></span>
+        <md-button class="md-icon-button" aria-label="Favorite">
+          <md-icon md-svg-icon="img/icons/favorite.svg" style="color: greenyellow;"></md-icon>
+        </md-button>
+        <md-button class="md-icon-button" aria-label="More">
+          <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+        </md-button>
+        </div>
+    </md-toolbar>
+
+    <!-- Container #2 -->
+    <div flex layout="row">
+
+        <!-- Container #3 -->
+        <md-sidenav flex="20" md-is-locked-open="true" class="md-whiteframe-z2">
+              <md-button ng-click="showSimpleToast()">
+				Show Simple
+				      <md-tooltip>
+				      Photos
+				      </md-tooltip>
+			  </md-button>
+			  <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </md-sidenav>
+
+        <!-- Container #4 -->
+        <md-content flex id="content">
+        
+
+			<div ng-cloak>
+			  <md-content>
+				<md-tabs md-dynamic-height md-border-bottom>
+				  <md-tab label="one">
+					<md-content class="md-padding">
+					  <h1 class="md-display-2">Tab One</h1>
+					  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
+					</md-content>
+				  </md-tab>
+				  <md-tab label="two">
+					<md-content class="md-padding">
+					  <h1 class="md-display-2">Tab Two</h1>
+					  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor, orci enim rutrum enim, vel tempor sapien arcu a tellus. Vivamus convallis sodales ante varius gravida. Curabitur a purus vel augue ultrices ultricies id a nisl. Nullam malesuada consequat diam, a facilisis tortor volutpat et. Sed urna dolor, aliquet vitae posuere vulputate, euismod ac lorem. Sed felis risus, pulvinar at interdum quis, vehicula sed odio. Phasellus in enim venenatis, iaculis tortor eu, bibendum ante. Donec ac tellus dictum neque volutpat blandit. Praesent efficitur faucibus risus, ac auctor purus porttitor vitae. Phasellus ornare dui nec orci posuere, nec luctus mauris semper.</p>
+					  <p>Morbi viverra, ante vel aliquet tincidunt, leo dolor pharetra quam, at semper massa orci nec magna. Donec posuere nec sapien sed laoreet. Etiam cursus nunc in condimentum facilisis. Etiam in tempor tortor. Vivamus faucibus egestas enim, at convallis diam pulvinar vel. Cras ac orci eget nisi maximus cursus. Nunc urna libero, viverra sit amet nisl at, hendrerit tempor turpis. Maecenas facilisis convallis mi vel tempor. Nullam vitae nunc leo. Cras sed nisl consectetur, rhoncus sapien sit amet, tempus sapien.</p>
+					  <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+					</md-content>
+				  </md-tab>
+				  <md-tab label="three">
+					<md-content class="md-padding">
+					  <h1 class="md-display-2">Tab Three</h1>
+					  <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+					</md-content>
+				  </md-tab>
+				</md-tabs>
+			  </md-content>
+			</div>
+
+
+        </md-content>
+
+    </div>
+
+  </body>
+  
+</html>
